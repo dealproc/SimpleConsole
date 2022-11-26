@@ -11,6 +11,14 @@
     <PublishTrimmed>true</PublishTrimmed>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <AssemblyVersion>{MinVerMajor}.0.0.0</AssemblyVersion>
+    <FileVersion>{MinVerMajor}.{MinVerMinor}.{MinVerPatch}.0</FileVersion>
+    <!-- Nuget Packages -->
+    <!-- <PackageVersion>{MinVerVersion}</PackageVersion>
+    <Version>{MinVerVersion}</Version> -->
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="MinVer" Version="4.2.0">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
