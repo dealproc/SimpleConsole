@@ -14,6 +14,8 @@
   <PropertyGroup>
     <AssemblyVersion>{MinVerMajor}.0.0.0</AssemblyVersion>
     <FileVersion>{MinVerMajor}.{MinVerMinor}.{MinVerPatch}.0</FileVersion>
+    <MinVerVerbosity>detailed</MinVerVerbosity>
+    <MinVerTagPrefix>v</MinVerTagPrefix>
     <!-- Nuget Packages -->
     <!-- <PackageVersion>{MinVerVersion}</PackageVersion>
     <Version>{MinVerVersion}</Version> -->
