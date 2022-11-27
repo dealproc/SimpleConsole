@@ -13,9 +13,8 @@ jobs:
   
     strategy:
       matrix:
-        rid: [linux, win]
-        release: [Debug, Release]
-        os: [ubuntu-22.04]
+        rid: [linux-x64, win-x64]
+        release: [Release]
 
     runs-on: ubuntu-22.04
 
@@ -34,18 +33,18 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --no-restore --os ${{ matrix.os }} -c ${{ matrix.release }}
+      run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --no-restore --os ${{ matrix.rid }} -c ${{ matrix.release }}
       
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
     - name: Publish
-      run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --no-restore --no-build --os ${{ matrix.os }} -c ${{ matrix.release }}
+      run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --no-restore --no-build --os ${{ matrix.rid }} -c ${{ matrix.release }}
       
     - name: Zip Outputs
       uses: montudor/action-zip@v1
       with:
-        args: zip -qq -r ./artifacts/SimpleConsole.${{ matrix.os}}.zip ./source/SimpleConsole/bin/${{ matrix.release }}/publish
+        args: zip -qq -r ./artifacts/SimpleConsole.${{ matrix.rid }}.zip ./source/SimpleConsole/bin/${{ matrix.release }}/publish
       
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
