@@ -1,0 +1,53 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  push:
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+  
+    strategy:
+      matrix:
+        rid: [linux, win]
+        release: [Debug, Release]
+        os: [ubuntu-22.04]
+
+    runs-on: ubuntu-22.04
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Restore dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --no-restore --os ${{ matrix.os }} -c ${{ matrix.release }}
+      
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+      
+    - name: Publish
+      run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --no-restore --no-build --os ${{ matrix.os }} -c ${{ matrix.release }}
+      
+    - name: Zip Outputs
+      uses: montudor/action-zip@v1
+      with:
+        args: zip -qq -r ./artifacts/SimpleConsole.${{ matrix.os}}.zip ./source/SimpleConsole/bin/${{ matrix.release }}/publish
+      
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        path: ./artifacts/
