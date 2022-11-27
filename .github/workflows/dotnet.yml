@@ -13,7 +13,7 @@ jobs:
   
     strategy:
       matrix:
-        rid: [linux-x64]
+        rid: [linux-x64, win-x64, osx-x64]
         release: [Release]
 
     runs-on: ubuntu-22.04
@@ -35,8 +35,8 @@ jobs:
     - name: Build
       run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --self-contained --no-restore --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
       
-    - name: Test
-      run: dotnet test --no-build --verbosity normal --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
+#    - name: Test
+#      run: dotnet test --no-build --verbosity normal --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
       
     - name: Publish
       run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --self-contained --no-build --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
