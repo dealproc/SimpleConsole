@@ -41,14 +41,8 @@ jobs:
     - name: Publish
       run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --self-contained --no-build --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
     
-    - name: Install Zip
-      uses: montudor/action-zip@v1
-
-    - name: Zip Outputs
-      run: zip -qq -r SimpleConsole.${{ matrix.rid }}.zip .
-      working-directory: ./source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish
-      
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
       with:
-        path: './source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish/SimpleConsole.${{ matrix.rid }}.zip'
+        name: SimpleConsole-${{ matrix.rid }}.zip
+        path: './source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish'
