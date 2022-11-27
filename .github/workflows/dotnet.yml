@@ -33,13 +33,13 @@ jobs:
       run: dotnet restore
       
     - name: Build
-      run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --no-restore --os ${{ matrix.rid }} -c ${{ matrix.release }}
+      run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --no-restore --os ${{ matrix.rid }} -c ${{ matrix.release }} -p:PublishSingleFile=true
       
     - name: Test
       run: dotnet test --no-build --verbosity normal
       
     - name: Publish
-      run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --no-restore --no-build --os ${{ matrix.rid }} -c ${{ matrix.release }} --self-contained
+      run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --no-restore --no-build --os ${{ matrix.rid }} -c ${{ matrix.release }} -p:PublishSingleFile=true
       
     - name: Zip Outputs
       uses: montudor/action-zip@v1
