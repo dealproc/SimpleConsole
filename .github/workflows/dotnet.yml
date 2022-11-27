@@ -36,7 +36,7 @@ jobs:
       run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --self-contained --no-restore --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
       
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
       
     - name: Publish
       run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --self-contained --no-build --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
@@ -44,7 +44,7 @@ jobs:
     - name: Zip Outputs
       uses: montudor/action-zip@v1
       with:
-        args: zip --q -r SimpleConsole.${{ matrix.rid }}.zip ./source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish/*
+        args: zip --q -r SimpleConsole.${{ matrix.rid }}.zip -i ./source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish/*
       
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
