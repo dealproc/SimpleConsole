@@ -45,11 +45,12 @@ jobs:
       uses: thedoctor0/zip-release@main
       with:
         filename: 'SimpleConsole.${{ matrix.rid }}.zip'
-        path: './source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish'
+        directory: './source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish'
         type: 'zip'
         exclusions: '*.pdb'
       
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
       with:
-        path: 'SimpleConsole.${{ matrix.rid }}.zip'
+        name: 'SimpleConsole.${{ matrix.rid }}.zip'
+        path: './'
