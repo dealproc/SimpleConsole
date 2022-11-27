@@ -13,7 +13,7 @@ jobs:
   
     strategy:
       matrix:
-        rid: [linux-x64, win-x64]
+        rid: [linux, win]
         release: [Release]
 
     runs-on: ubuntu-22.04
