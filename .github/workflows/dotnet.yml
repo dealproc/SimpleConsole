@@ -15,15 +15,15 @@ jobs:
       matrix:
         rid: [linux-x64, win-x64, osx-x64]
         release: [Release]
-        include:
-          - os: ubuntu-22.04
-            rid: linux-x64
-          - os: windows-2022
-            rid: win-x64
-          - os: macos-12
-            rid: osx-x64
+#        include:
+#          - os: ubuntu-22.04
+#            rid: linux-x64
+#          - os: windows-2022
+#            rid: win-x64
+#          - os: macos-12
+#            rid: osx-x64
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-22.04 #${{ matrix.os }}
 
     steps:
     - name: Checkout
@@ -42,8 +42,8 @@ jobs:
     - name: Build
       run: dotnet build ./source/SimpleConsole/SimpleConsole.csproj --self-contained --no-restore --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
       
-#    - name: Test
-#      run: dotnet test --no-build --verbosity normal --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
+    - name: Test
+      run: dotnet test --no-build --verbosity normal --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
       
     - name: Publish
       run: dotnet publish ./source/SimpleConsole/SimpleConsole.csproj --self-contained --no-build --runtime ${{ matrix.rid }} -c ${{ matrix.release }}
