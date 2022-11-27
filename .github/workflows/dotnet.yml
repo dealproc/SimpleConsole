@@ -44,10 +44,9 @@ jobs:
     - name: Zip Outputs
       uses: montudor/action-zip@v1
       with:
-        args: zip --q -r SimpleConsole.${{ matrix.rid }}.zip ./source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish/
+        args: zip --q -r SimpleConsole.${{ matrix.rid }}.zip ./source/SimpleConsole/bin/${{ matrix.release }}/net6.0/${{ matrix.rid }}/publish/*
       
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: 'SimpleConsole.${{ matrix.rid }}.zip'
         path: './SimpleConsole.${{ matrix.rid }}.zip'
