@@ -53,4 +53,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: 'SimpleConsole.${{ matrix.rid }}.zip'
-        path: './'
+        path: './SimpleConsole.${{ matrix.rid }}.zip'
